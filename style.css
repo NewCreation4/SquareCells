@@ -4,10 +4,21 @@
   font-family:sans-serif;
 }
 
+#version {
+  position:absolute;
+  top: 95%;
+}
+
+#u-log {
+  position:absolute;
+  top: 82%;
+}
+
 body {
   background-image: linear-gradient(#B1B8FF,#000B8A);
   width: 1vh;
   height: 101vh;
+  font-family:sans-serif;
 }
 
 #title {
@@ -103,7 +114,7 @@ body {
   left: 5%;
   top: 4%;
 }
-#energy {
+#atp {
   position: absolute;
   left: 5%;
   top: 8%;
@@ -124,8 +135,8 @@ body {
   left: 22%;
   top: 4.5%;
 }
-.energy {
-  accent-color: yellow;
+.atp {
+  accent-color: green;
   position: absolute;
   left: 22%;
   top: 8.5%;
