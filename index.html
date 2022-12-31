@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HTML</title>
+  
+  <!-- HTML -->
+  
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+  <div id="menu" class="shown">
+    
+    <h1 id="title">Square Cells</h1>
+    <h2 id="choose">Choose:</h2>
+    <button id="photosynthetic">Photosynthetic</button>
+    <button id="thermosynthetic">Thermosynthetic</button>
+    <button id="play">Play</button>
+  
+  </div>
+  
+  <div id="game" class="hidden">
+  <div id="board">
+    <div id="player">
+      
+    </div>
+  </div>
+  <button id="top">></button>
+  <button id="down">></button>
+  <button id="o">></button>
+  <button id="r"><</button>
+  
+  <p id="glucose">Glucose:</p>
+  <p id="energy">Energy:</p>
+  <p id="health">Health:</p>
+  <p id="salinity">Salinity:</p>
+  <progress id="glucoseBar" value="100" min="0" max="100" class="glucose"></progress>
+  <progress id="energyBar" value="100" min="0" max="100" class="energy"></progress>
+  <progress id="healthBar" value="100" min="0" max="100" class="health"></progress>
+  <progress id="salinityBar" value="100" min="0" max="100" class="salinity"></progress>
+  
+  <button id="synthesis">Photosynthesis</button>
+  <p id="syn">Cooldown is 5 seconds and photosynthesis gives 10 glucose.</p>
+  </div>
+  
+  <script src="main.js"></script>
+</body>
+</html>

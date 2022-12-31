@@ -1,0 +1,161 @@
+* {
+  margin:0;
+  padding:0;
+}
+
+body {
+  background-image: linear-gradient(#B1B8FF,#000B8A);
+  width: 1vh;
+  height: 101vh;
+}
+
+#title {
+  position:absolute;
+  left: 20%;
+  top: 20%;
+  font-size: 32pt;
+}
+#choose {
+  position:absolute;
+  left:27.5%;
+  top:37.5%;
+  font-size: 32pt;
+}
+#photosynthetic {
+  position: absolute;
+  left:12.5%;
+  top:50%;
+  font-size: 12pt;
+  height: 32pt;
+}
+#thermosynthetic {
+  position:absolute;
+  left: 60%;
+  top:50%;
+  font-size:12pt;
+  height:32pt;
+}
+#play {
+  position: absolute;
+  left:40%;
+  top:75%;
+  font-size:12pt;
+  height:32pt;
+  width:64pt;
+}
+
+#board {
+  background-color: #8C7AFF;
+}
+
+#player {
+  position:absolute;
+  transition: all 250ms;
+}
+
+.thermo-cube {
+  background-color:#FF6A6A;
+  border: 0px solid #FF6A6A;
+  border-radius: 12%;
+}
+.photo-cube {
+  background-color: #83FF84;
+  border: 0px solid #83FF84;
+  border-radius: 12%;
+}
+#top {
+  position:absolute;
+  transform:rotate(270deg);
+  left: 50%;
+  top: 70%;
+  width:32px;
+  height:32px;
+}
+
+#down {
+  position:absolute;
+  transform:rotate(90deg);
+  left: 50%;
+  top: 80%;
+  width:32px;
+  height:32px;
+}
+
+#o {
+  position:absolute;
+  left: 60%;
+  top: 75%;
+  width:32px;
+  height:32px;
+}
+#r {
+  position: absolute;
+  left:40%;
+  top: 75%;
+  width:32px;
+  height:32px;
+}
+
+
+#glucose {
+  position: absolute;
+  left: 5%;
+  top: 4%;
+}
+#energy {
+  position: absolute;
+  left: 5%;
+  top: 8%;
+}
+#health {
+  position:absolute;
+  left: 5%;
+  top: 12%;
+}
+#salinity {
+  position:absolute;
+  left: 5%;
+  top: 16%;
+}
+.glucose {
+  accent-color: white;
+  position: absolute;
+  left: 22%;
+  top: 4.5%;
+}
+.energy {
+  accent-color: yellow;
+  position: absolute;
+  left: 22%;
+  top: 8.5%;
+}
+.health {
+  accent-color: red;
+  position: absolute;
+  left: 22%;
+  top: 12.5%;
+}
+.salinity {
+  accent-color: #C2C8FF;
+  position: absolute;
+  left: 22%;
+  top: 16.5%;
+}
+#synthesis {
+  position: absolute;
+  left: 10%;
+  top: 70%;
+  height: 12vh;
+}
+#syn {
+  position: absolute;
+  left: 10.5%;
+  top: 85%;
+}
+
+.hidden {
+  display: none;
+}
+.shown {
+  display: normal;
+}
