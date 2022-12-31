@@ -1,26 +1,21 @@
-let synthesisType="photo"
+let synthesisType=""
 
 // amount of glucose produced when synthesing
 let synthesisGlucoseOutput=0
 
-let makeEnergyOnSynthesis=false
-
-let cooldownOnSynthesis=0
+let makeAtpFromSynthesis=false
 
 // amount of energy a cell will use to keep its salinity balanced
-let energyUsage=0
+let atpUsage=0
 
 let onMenu=true
 
-let synthesisCooldown=0
 let glucose=100
-let energy=100
+let atp=100
 let health=100
 let salinity=100
 
 
-let synthesis=document.getElementById("synthesis")
-let syn=document.getElementById("syn")
 let play=document.getElementById("play")
 let photo=document.getElementById("photosynthetic")
 let thermo=document.getElementById("thermosynthetic")
@@ -45,21 +40,20 @@ let player = {
 photo.onclick=()=>{
   synthesisType="photo"
   synthesisGlucoseOutput=15
-  cooldownOnSynthesis=5
-  energyUsage=0.1
+  atpUsage=0.1
 }
 
 thermo.onclick=()=>{
   synthesisType="thermo"
-  synthesisGlucoseOutput=7.5
-  cooldownOnSynthesis=3
-  energyUsage=0.125
-  makeEnergyOnSynthesis=true
+  synthesisGlucoseOutput=0.05
+  atpUsage=0.1
+  makeAtpFromSynthesis=true
 }
 
 
 
 play.onclick=()=>{
+  if (synthesisType!="") {
   onMenu = false
   menu.classList.remove("shown")
   menu.classList.add("hidden")
@@ -69,8 +63,7 @@ play.onclick=()=>{
     document.getElementById("player").classList.add("photo-cube")
   } else {
     document.getElementById("player").classList.add("thermo-cube")
-    syn.innerText="Produces 7.5 glucose from thermal heat, also produces 5 energy. Cooldown: 3 seconds"
-    synthesis.innerText="Thermosynthesis"
+  }
   }
 }
 
@@ -82,35 +75,35 @@ let regenGlucose=(amount)=>{
   }
   document.getElementById("glucoseBar").value=glucose
 }
-let regenEnergy=(amount,glucoseCost)=>{
+let regenATP=(amount,glucoseCost)=>{
   if (glucose>=glucoseCost) {
-    if (energy<100) {
-      energy=energy+amount
+    if (atp<100) {
+      atp=atp+amount
       glucose=glucose-glucoseCost
     }
   }
-  document.getElementById("energyBar").value=energy
+  document.getElementById("atpBar").value=atp
   document.getElementById("glucoseBar").value=glucose
 }
-let regenHealth=(amount,energyCost)=>{
-  if (energy>energyCost+20) {
+let regenHealth=(amount,atpCost)=>{
+  if (atp>atpCost+20) {
     if (health<100) {
       health=health+amount
-      energy=energy-energyCost
+      atp=atp-atpCost
     }
   }
-  document.getElementById("energyBar").value=energy
+  document.getElementById("atpBar").value=atp
   document.getElementById("healthBar").value=health
 }
 
-let regenSalinity=(amount, energyCost) => {
-  if (energy >= energyCost) {
+let regenSalinity=(amount, atpCost) => {
+  if (atp >= atpCost) {
     if (salinity<100) {
       salinity=salinity+amount
-      energy=energy-energyCost
+      atp=atp-atpCost
     }
   }
-  document.getElementById("energyBar").value=energy
+  document.getElementById("atpBar").value=atp
   document.getElementById("salinityBar").value=salinity
 }
 
@@ -180,13 +173,13 @@ let O=document.getElementById("o")
 let R=document.getElementById("r")
 
 O.onclick=()=>{
-  if (energy>=2.5) {
+  if (atp>=2.5) {
   if (player.x_pos < (board.width - player.width)) {
     player.x_pos+=50
     if (checkMove()) {
       playerDiv.style.left = player.x_pos + "px"
-      document.getElementById("energyBar").value = energy
-      energy -= 2.5
+      document.getElementById("atpBar").value = atp
+      atp -= 2.5
     } else {
       player.x_pos-=50
     }
@@ -195,13 +188,13 @@ O.onclick=()=>{
 }
 
 R.onclick=()=>{
-  if (energy>=2.5) {
+  if (atp>=2.5) {
   if (player.x_pos > 0)  {
     player.x_pos-=50
     if (checkMove()) {
       playerDiv.style.left = player.x_pos + "px"
-      document.getElementById("energyBar").value = energy
-      energy -= 2.5
+      document.getElementById("atpBar").value = atp
+      atp -= 2.5
     } else {
       player.x_pos+=50
     }
@@ -210,13 +203,13 @@ R.onclick=()=>{
 }
 
 Top.onclick=()=>{
-  if (energy>=2.5) {
+  if (atp>=2.5) {
   if (player.y_pos > 0) {
     player.y_pos-=50
     if (checkMove()) {
       playerDiv.style.top = player.y_pos + "px"
-      document.getElementById("energyBar").value = energy
-      energy -= 2.5
+      document.getElementById("atpBar").value = atp
+      atp -= 2.5
     } else {
       player.y_pos+=50
     }
@@ -227,13 +220,13 @@ Top.onclick=()=>{
 
 
 Down.onclick=()=>{
-  if (energy>=2.5) {
+  if (atp>=2.5) {
     if (player.y_pos < (board.height - player.height)) {
       player.y_pos+=50
       if (checkMove()) {
         playerDiv.style.top = player.y_pos + "px"
-        document.getElementById("energyBar").value = energy
-        energy -= 2.5
+        document.getElementById("atpBar").value = atp
+        atp -= 2.5
       } else {
         player.y_pos-=50
       }
@@ -241,52 +234,35 @@ Down.onclick=()=>{
   }
 }
 
-synthesis.onclick=()=>{
-  if (synthesisCooldown==0) {
-    regenGlucose(synthesisGlucoseOutput)
-    synthesisCooldown=cooldownOnSynthesis
-    if (makeEnergyOnSynthesis==true) {
-      regenEnergy(5,0)
-    }
-  }
-  document.getElementById("glucoseBar").value=glucose
-  document.getElementById("energyBar").value=energy
-}
-
-
 
 setInterval(()=>{
-  if (synthesisCooldown>0) {
-    synthesisCooldown=synthesisCooldown-0.1
-    if (Math.floor(synthesisCooldown)!=0) {
-      syn.innerText=Math.floor(synthesisCooldown)
-    } else {
-      synthesisCooldown=0
-      syn.innerText=""
-    }
-  }
   regenHealth(2.5,5)
   
   
-  energy=energy-energyUsage
+  
+  if (synthesisType=="thermo") {
+    atp=atp-atpUsage/2.5
+  } else {
+    atp=atp-atpUsage
+  }
   
   if (salinity+5>100) {
-    if (energy>energyUsage) {
+    if (atp>atpUsage) {
       salinity=100
       document.getElementById("salinityBar").value=salinity
     }
   } else {
-    if (energy>energyUsage) {
+    if (atp>atpUsage) {
       salinity=salinity+5
-      document.getElementById("energyBar").value=energy
+      document.getElementById("atpBar").value=atp
     }
   }
   
   
-  regenEnergy(0.5,0.25)
+  regenATP(0.5,0.25)
   regenHealth(2.5,5)
   
-  if (energy<energyUsage) {
+  if (atp<atpUsage) {
     salinity=salinity-15
   }
   
@@ -301,24 +277,28 @@ setInterval(()=>{
   
   if (health==0) {
     glucose=-9999999
-    energy=-9999999
+    atp=-9999999
     salinity=-9999999
   }
   document.getElementById("salinityBar").value=salinity
-  document.getElementById("energyBar").value=energy
+  document.getElementById("atpBar").value=atp
   document.getElementById("glucoseBar").value=glucose
   regenHealth(2.5,5)
   if (onMenu==true) {
     glucose=100
     salinity=100
-    energy=100
+    atp=100
     health=100
     document.getElementById("salinityBar").value=salinity
-    document.getElementById("energyBar").value=energy
+    document.getElementById("atpBar").value=atp
     document.getElementById("glucoseBar").value=glucose
     document.getElementById("healthBar").value=health
   }
   
+  regenGlucose(synthesisGlucoseOutput)
+  if(makeAtpFromSynthesis==true) {
+    regenATP(0.1,0)
+  }
   
   
 },100)
